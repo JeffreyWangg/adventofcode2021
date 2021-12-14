@@ -10,47 +10,49 @@ void day4(int argc, char* argv[]){
 	char markarr[25];
 	char* input = malloc(strlen(argv[1]) + 1);
 	char* check = malloc(8);
-	int prev = 0;
-	int index;
-	int b = 0;
+	int firstprev = 100;
+	int lastprev = 0;
+	int firstindex;
+	int lastindex;
+	int stepnum;
 
 	for(int i = 2; i < argc; i = i + 25){ //for every grid
-		printf("i: %i\n", (i + 23) / 25);
 		strcpy(input, argv[1]);
 		for(int j = 0; j < 25; j++){
 			boardarr[j] = argv[i + j];
 			markarr[j] = ' ';
 		}
 
-		int stepnum = checkBoard(boardarr, markarr, input, &check);
+		stepnum = checkBoard(boardarr, markarr, input, &check);
 
-
-		printf("num steps: %i\n", stepnum);
-
-		if(prev == 0){
-			prev = stepnum;
-		} else if(prev > stepnum){
-			index = (i + 23) / 25;
-			prev = stepnum;
+		if(firstprev > stepnum){
+			firstindex = (i + 23) / 25;
+			firstprev = stepnum;
+		}
+		if(lastprev < stepnum){
+			lastindex = (i + 23) / 25;
+			lastprev = stepnum;
 		}
 	}
 
+	printf("first board to win: %i, with %i moves\n", firstindex, firstprev);
+	printf("last board to win: %i, with %i moves\n", lastindex, lastprev);
+
 	for(int i = 0; i < 25; i++){
-		boardarr[i] = argv[(index * 25 - 23) + i];
+		boardarr[i] = argv[(firstindex * 25 - 23) + i];
 	}
 	strcpy(input, argv[1]);
-	printf("\n");
-	printf("\n");
-
 	checkBoard(boardarr, markarr, input, &check);
-	for(int i = 0; i < 25; i++){
-		printf("%s ", boardarr[i]);
-	}
-	printf("\n");
-	printf("%s ",check);
-
 	int sc = score(boardarr, markarr, check);
-	printf("score: %i", sc);
+	printf("score of first board to win: %i\n", sc);
+
+	for(int i = 0; i < 25; i++){
+		boardarr[i] = argv[(lastindex * 25 - 23) + i];
+	}
+	strcpy(input, argv[1]);
+	checkBoard(boardarr, markarr, input, &check);
+	sc = score(boardarr, markarr, check);
+	printf("score of last board to win: %i", sc);
 
 	free(boardarr);
 	free(input);
@@ -122,7 +124,6 @@ int score(char** board, char* checkboard, char* last){
 			score = score + (int)strtol(board[i], &ptr, 10);
 		}
 	}
-	printf("score: %i\n", score);
 	score = score * strtol(last, &ptr, 10);
 	return score;
 }
