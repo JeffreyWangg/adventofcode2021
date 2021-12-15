@@ -1,5 +1,7 @@
-src/test2.o: ../src/test2.c ../src/day3.h ../src/day4.h
+src/test2.o: ../src/test2.c ../src/day3.h ../src/day4.h ../src/day5.h
 
 ../src/day3.h:
 
 ../src/day4.h:
+
+../src/day5.h:

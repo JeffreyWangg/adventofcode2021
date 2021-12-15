@@ -6,16 +6,19 @@
 C_SRCS += \
 ../src/day3.c \
 ../src/day4.c \
+../src/day5.c \
 ../src/test2.c 
 
 OBJS += \
 ./src/day3.o \
 ./src/day4.o \
+./src/day5.o \
 ./src/test2.o 
 
 C_DEPS += \
 ./src/day3.d \
 ./src/day4.d \
+./src/day5.d \
 ./src/test2.d 
 
 

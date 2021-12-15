@@ -10,7 +10,8 @@
 
 #include "day3.h"
 #include "day4.h"
+#include "day5.h"
 
 int main(int argc, char *argv[]) {
-	day4(argc, argv);
+	day5(argc, argv);
 }
